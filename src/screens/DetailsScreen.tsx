@@ -1,11 +1,7 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigation/StackNavigator";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Details">;
-
-export default function DetailsScreen({ route }: Props) {
+export default function DetailsScreen({ route }: any) {
   const { pokemon } = route.params;
 
   return (
@@ -13,13 +9,17 @@ export default function DetailsScreen({ route }: Props) {
       <Image source={{ uri: pokemon.image }} style={styles.image} />
       <Text style={styles.name}>{pokemon.name.toUpperCase()}</Text>
 
-      <Text style={styles.info}>Altura: {pokemon.height}</Text>
-      <Text style={styles.info}>Peso: {pokemon.weight}</Text>
+      <View style={styles.infoCard}>
+        <Text style={styles.info}>Altura: {pokemon.height}</Text>
+        <Text style={styles.info}>Peso: {pokemon.weight}</Text>
 
-      <Text style={styles.info}>Tipos:</Text>
-      {pokemon.types.map((t, index) => (
-        <Text key={index}>🔹 {t.type.name}</Text>
-      ))}
+        <Text style={[styles.info, { marginTop: 10 }]}>Tipos:</Text>
+        {pokemon.types.map((t: any, index: number) => (
+          <Text key={index} style={styles.type}>
+            🔹 {t.type.name}
+          </Text>
+        ))}
+      </View>
     </View>
   );
 }
@@ -27,20 +27,34 @@ export default function DetailsScreen({ route }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#EF5350",
+    justifyContent: "center",
     alignItems: "center",
-    paddingTop: 40,
-    backgroundColor: "#f2f2f2",
   },
   image: {
-    width: 180,
-    height: 180,
+    width: 200,
+    height: 200,
   },
   name: {
-    fontSize: 30,
+    color: "#FFF",
+    fontSize: 32,
     fontWeight: "bold",
     marginVertical: 15,
   },
+  infoCard: {
+    backgroundColor: "#FFF",
+    padding: 20,
+    borderRadius: 20,
+    width: "85%",
+    alignItems: "center",
+    elevation: 5,
+  },
   info: {
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  type: {
+    fontSize: 16,
+    color: "#333",
   },
 });

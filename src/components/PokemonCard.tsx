@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, Image, StyleSheet, View } from "react-native";
 import { Pokemon } from "../types/Pokemon";
 
 interface Props {
@@ -18,20 +18,24 @@ export default function PokemonCard({ pokemon, onPress }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#ffffff",
-    borderRadius: 10,
-    marginVertical: 8,
-    padding: 16,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 15,
     alignItems: "center",
     elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 120,
+    height: 120,
   },
   name: {
-    fontSize: 18,
-    fontWeight: "bold",
     marginTop: 10,
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#EF5350",
   },
 });

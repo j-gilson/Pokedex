@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, ActivityIndicator } from "react-native";
+import { View, FlatList, ActivityIndicator, Text, StyleSheet } from "react-native";
 import PokemonCard from "../components/PokemonCard";
-import { Pokemon } from "../types/Pokemon";
 import { api } from "../services/api";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../navigation/StackNavigator";
+import { Pokemon } from "../types/Pokemon";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Home">;
-
-export default function HomeScreen({ navigation }: Props) {
+export default function HomeScreen({ navigation }: any) {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -37,11 +33,17 @@ export default function HomeScreen({ navigation }: Props) {
   }, []);
 
   if (loading) {
-    return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={"#EF5350"} />
+        <Text style={styles.loadingText}>Carregando Pokedex...</Text>
+      </View>
+    );
   }
 
   return (
-    <View style={{ padding: 20 }}>
+    <View style={styles.container}>
+      <Text style={styles.title}>Pokedex</Text>
       <FlatList
         data={pokemons}
         keyExtractor={(item) => item.name}
@@ -55,3 +57,28 @@ export default function HomeScreen({ navigation }: Props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F2F2F2",
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginVertical: 20,
+    color: "#EF5350",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 18,
+    color: "#555",
+  },
+});
